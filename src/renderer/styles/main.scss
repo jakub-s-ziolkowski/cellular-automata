@@ -1,6 +1,5 @@
 
-$background-color: white;
-$foreground-color: black;
+@use './abstracts/colors' as *;
 
 :root { font-size: 62.5%; }
 

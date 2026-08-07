@@ -1,9 +1,5 @@
 
-@mixin outline ($color) {
-
-    border: .1rem solid $color;
-    border-radius: .5rem;
-}
+@use '../../styles/abstracts/_frame' as *;
 
 .main {
 
@@ -15,8 +11,6 @@
     & > * {
 
         flex-grow: 1;
-        
-        @include outline(red);
     }
 }
 
@@ -26,8 +20,6 @@
 
         width: 10vmin;
         margin-bottom: 20vmin;
-
-        @include outline(purple);
     }
     
     &__frame {
@@ -40,14 +32,12 @@
 
         flex-grow: 1;
 
-        @include outline(purple);
+        @include border;
     }
 
     &__bottomPanel {
 
         height: 20vmin;
-
-        @include outline(purple);
     }
 }
 
@@ -56,14 +46,12 @@
     .workspace {
 
         flex-grow: 1;
-
-        @include outline(purple);
     }
     
     &__nav {
 
         width: 10vmin;
-
-        @include outline(purple);
     }
+
+    @include border(relative);
 }

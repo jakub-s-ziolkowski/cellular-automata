@@ -1,6 +1,16 @@
 
 import './App.scss';
 
+/*
+skala
+koordy
+prędkość
+epoka
+stan symulacji
+aktywna karta
+env
+*/
+
 const App = () : React.JSX.Element => {
 
     return (
@@ -13,9 +23,8 @@ const App = () : React.JSX.Element => {
                 </section>
             </section>
             <section className = "workspaceFrame">
-                <section className = "workspace">
-                    <span className = "workspace__title"></span>
-                </section>
+                <span className = "workspaceFrame__title">Title</span>
+                <section className = "workspace"></section>
                 <nav className = "workspaceFrame__nav"></nav>
             </section>
         </main>

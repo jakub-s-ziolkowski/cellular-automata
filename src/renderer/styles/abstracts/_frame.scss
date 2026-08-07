@@ -1,0 +1,35 @@
+
+@use './colors' as *;
+
+@mixin label {
+
+    position: absolute;
+    top: -1rem;
+    left: 1rem;
+
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+    padding: 0 1rem;
+    background-color: $background-color;
+
+    font-size: 2rem;
+    color: $foreground-color;
+    letter-spacing: .2rem;
+}
+
+@mixin border ($position: auto) {
+
+    border: .1rem solid $outline-color;
+    border-radius: 1rem;
+    
+    @if $position != 'auto' {
+
+        position: relative;
+
+        &__title {
+    
+            @include label;
+        }
+    }
+}
