@@ -5,8 +5,8 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import './styles/main.scss';
 
-const container = document.getElementById('root')!;
-const root = ReactDOM.createRoot(container);
+const body = document.body!;
+const root = ReactDOM.createRoot(body);
 
 root.render(
 

@@ -1,0 +1,69 @@
+
+@mixin outline ($color) {
+
+    border: .1rem solid $color;
+    border-radius: .5rem;
+}
+
+.main {
+
+    height: 100%;
+    width: 100%;
+
+    gap: 10vmin;
+
+    & > * {
+
+        flex-grow: 1;
+        
+        @include outline(red);
+    }
+}
+
+.display {
+
+    &__sidePanel {
+
+        width: 10vmin;
+        margin-bottom: 20vmin;
+
+        @include outline(purple);
+    }
+    
+    &__frame {
+        
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    &__canvas {
+
+        flex-grow: 1;
+
+        @include outline(purple);
+    }
+
+    &__bottomPanel {
+
+        height: 20vmin;
+
+        @include outline(purple);
+    }
+}
+
+.workspaceFrame {
+
+    .workspace {
+
+        flex-grow: 1;
+
+        @include outline(purple);
+    }
+    
+    &__nav {
+
+        width: 10vmin;
+
+        @include outline(purple);
+    }
+}
