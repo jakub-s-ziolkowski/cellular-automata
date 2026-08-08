@@ -1,0 +1,30 @@
+
+@use '../../styles/abstracts/colors' as *;
+
+.scaleDashboard {
+
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+
+    height: 100%;
+    width: 100%;
+
+    &::before, &::after {
+
+        content: '';
+
+        position: absolute;
+
+        height: calc(50% - 10.5rem);
+        width: .1rem;
+        background-color: $outline-color;
+        border-radius: 1rem;
+    }
+
+    &::before { top: 0; }
+    
+    &::after { bottom: 0; }
+}

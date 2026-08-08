@@ -1,0 +1,29 @@
+
+@use '../../styles/abstracts/colors' as *;
+
+.workspaceDashboard {
+
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+
+    height: 100%;
+    width: 100%;
+    padding: 3rem 0;
+
+    &__line {
+
+        height: .1rem;
+        width: 3rem;
+
+        background-color: $outline-color;
+        border-radius: 1rem;
+    }
+
+    & button {
+
+        height: 3rem;
+        width: 3rem;
+    }
+}

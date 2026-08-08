@@ -10,7 +10,7 @@
 
     & > * {
 
-        flex-grow: 1;
+        width: 50%;
     }
 }
 
@@ -25,17 +25,20 @@
     &__frame {
         
         flex-direction: column;
-        flex-grow: 1;
+        width: calc(100% - 10vmin);
     }
 
     &__canvas {
 
-        flex-grow: 1;
+        height: calc(100% - 20vmin);
 
         @include border;
     }
 
     &__bottomPanel {
+
+        flex-direction: column;
+        justify-content: space-evenly;
 
         height: 20vmin;
     }
@@ -45,7 +48,7 @@
 
     .workspace {
 
-        flex-grow: 1;
+        width: calc(100% - 10vmin);
     }
     
     &__nav {
