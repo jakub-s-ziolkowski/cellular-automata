@@ -8,9 +8,4 @@ import './styles/main.scss';
 const body = document.body!;
 const root = ReactDOM.createRoot(body);
 
-root.render(
-
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>
-);
+root.render(<App />);
