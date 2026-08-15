@@ -2,6 +2,7 @@
 import React from 'react';
 
 import { Species } from './species';
+import { Coordinates } from './coordinates';
 import { Cell } from './cell';
 import { Condition } from './condition';
 import { Rule } from './rule';
@@ -26,6 +27,9 @@ type EnvironmentHook = {
 class Environment {
 
     public epochs : number = 0;
+    public speed : number = 1;
+    public scale : number = 1;
+    public coordinates : Coordinates = new Coordinates();
 
     public species : Species[] = [];
     public cells : Cell[] = [];
