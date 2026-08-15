@@ -7,6 +7,11 @@ import ZoomInIcon from '../../assets/icons/zoom-in.svg';
 import ZoomCenterIcon from '../../assets/icons/center.svg';
 import ZoomOutIcon from '../../assets/icons/zoom-out.svg';
 
+import ResetIcon from '../../assets/icons/square.svg';
+import StartIcon from '../../assets/icons/start.svg';
+import PauseIcon from '../../assets/icons/pause.svg';
+import ArrowIcon from '../../assets/icons/arrow.svg';
+
 interface ButtonProps {
 
     title : string,
@@ -38,10 +43,10 @@ const Button = ({ title, type, functionality = () => {}, isDisabled = false } : 
                         case 'Zoom center': return <ZoomCenterIcon />;
                         case 'Zoom out': return <ZoomOutIcon />;
 
-                        // case 'Reset': return <ResetIcon />;
-                        // case 'Start': return <StartIcon />;
-                        // case 'Stop': return <PauseIcon />;
-                        // case 'Step': return <ArrowIcon />;
+                        case 'Reset': return <ResetIcon />;
+                        case 'Start': return <StartIcon />;
+                        case 'Stop': return <PauseIcon />;
+                        case 'Step': return <ArrowIcon />;
 
                         // case 'Cells': return <ClickIcon />;
                         // case 'Add': return <CirclePlus />;

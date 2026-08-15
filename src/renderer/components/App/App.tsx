@@ -1,5 +1,5 @@
 
-import { useReducer,  } from 'react';
+import { useReducer } from 'react';
 
 import ScaleDashboard from '../ScaleDashboard/ScaleDashboard';
 import SpeedDashboard from '../SpeedDashboard/SpeedDashboard';
@@ -14,6 +14,7 @@ import { environmentReducer } from './App.helpers';
 const App = () : React.JSX.Element => {
     
     const [ state, dispatch ] = useReducer(environmentReducer, {...new Environment()} as EnvironmentObject);
+    // const environment = useMemo(() => ({ state, dispatch }), [ state ]);
     const environment = { state, dispatch };
 
     return (
@@ -26,7 +27,7 @@ const App = () : React.JSX.Element => {
                     <section className = "display__canvas"></section>
                     <nav className = "display__bottomPanel">
                         <SpeedDashboard />
-                        <EpochsDashboard />
+                        <EpochsDashboard environment = { environment } />
                     </nav>
                 </section>
             </section>

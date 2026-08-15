@@ -10,6 +10,10 @@ import { RelationType, Relation } from './relation';
 
 type EnvironmentObject = {
 
+    isRunning : boolean;
+    isManual : boolean;
+    editMode : number;
+    workspaceMode : number;
     epochs : number,
     speed : number,
     scale : number,
@@ -29,6 +33,11 @@ type EnvironmentHook = {
 
 class Environment {
 
+    public isRunning : boolean = false;
+    public isManual : boolean = true;
+    public editMode : number = -1;
+    public workspaceMode : number = 9;
+    
     public epochs : number = 0;
     public speed : number = 1;
     public scale : number = 1;
@@ -48,6 +57,15 @@ class Environment {
 
     public static decreaseScale (environment : EnvironmentHook) : void
         { environment.dispatch({ type: 'decrease-scale' }) }
+
+    public static resetSimulation (environment : EnvironmentHook) : void
+        { environment.dispatch({ type: 'reset-simulation' }) }
+
+    public static toggleSimulation (environment : EnvironmentHook) : void
+        { environment.dispatch({ type: 'toggle-simulation' }) }
+
+    public static nextEpoch (environment : EnvironmentHook) : void
+        { environment.dispatch({ type: 'next-step' }) }
 
     public static addSpecies (environment : EnvironmentHook, speciesColor : string, speciesName : string) : void
         { environment.dispatch({ type: 'add-species', speciesColor, speciesName }); }
