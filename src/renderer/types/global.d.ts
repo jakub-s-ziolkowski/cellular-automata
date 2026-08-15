@@ -6,9 +6,12 @@ declare module '*.scss' {
 }
 
 declare module '*.svg' {
+    
+    import type { FunctionComponent, SVGProps } from 'react';
 
-    const src : string;
-    export default src;
+    const ReactComponent: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+
+    export default ReactComponent;
 }
 
 declare module '*.wasm' {

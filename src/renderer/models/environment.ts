@@ -10,7 +10,10 @@ import { RelationType, Relation } from './relation';
 
 type EnvironmentObject = {
 
-    epochs : number;
+    epochs : number,
+    speed : number,
+    scale : number,
+    coordinates : Coordinates,
     species : Species[];
     cells : Cell[];
     conditions : Condition[];
@@ -37,39 +40,49 @@ class Environment {
     public rules : Rule[] = [];
     public relations : Relation[] = [];
 
+    public static increaseScale (environment : EnvironmentHook) : void
+        { environment.dispatch({ type: 'increase-scale' }) }
+
+    public static resetPerspective (environment : EnvironmentHook) : void
+        { environment.dispatch({ type: 'reset-perspective' }) }
+
+    public static decreaseScale (environment : EnvironmentHook) : void
+        { environment.dispatch({ type: 'decrease-scale' }) }
+
     public static addSpecies (environment : EnvironmentHook, speciesColor : string, speciesName : string) : void
-        { environment.dispatch({ type: 'addSpecies', speciesColor, speciesName }); }
+        { environment.dispatch({ type: 'add-species', speciesColor, speciesName }); }
 
     public static addCell (environment : EnvironmentHook, speciesIndex : number, x : number, y : number) : void
-        { environment.dispatch({ type: 'addCell', speciesIndex, x, y }); }
+        { environment.dispatch({ type: 'add-cell', speciesIndex, x, y }); }
 
     static addCondition (environment : EnvironmentHook, conditionName : string,
         speciesIndex : number, conditionCoefficient : number) : void
-            { environment.dispatch({ type: 'addCondition', conditionName, speciesIndex, conditionCoefficient }); }
+            { environment.dispatch({ type: 'add-condition', conditionName, speciesIndex, conditionCoefficient }); }
 
     static addRelation (environment : EnvironmentHook,
         leftSpeciesIndex : number, rightSpeciesIndex : number, relationType : RelationType, relationCoefficient : number) : void
-            { environment.dispatch({ type: 'addRelation', leftSpeciesIndex, rightSpeciesIndex, relationType, relationCoefficient }); }
+            { environment.dispatch({ type: 'add-relation', leftSpeciesIndex, rightSpeciesIndex, relationType, relationCoefficient }); }
 
     static removeSpecies (environment : EnvironmentHook, speciesIndex : number) : void
-        { environment.dispatch({ type: 'removeSpecies', speciesIndex }); }
+        { environment.dispatch({ type: 'remove-species', speciesIndex }); }
 
     static removeCell (environment : EnvironmentHook, x : number, y : number) : void
-        { environment.dispatch({ type: 'removeCell', x, y }); }
+        { environment.dispatch({ type: 'remove-sell', x, y }); }
 
     static removeCondition (environment : EnvironmentHook, conditionIndex : number) : void
-        { environment.dispatch({ type: 'removeCondition', conditionIndex }); }
+        { environment.dispatch({ type: 'remove-condition', conditionIndex }); }
 
     static removeRule (environment : EnvironmentHook, ruleIndex : number) : void
-        { environment.dispatch({ type: 'removeRule', ruleIndex }); }
+        { environment.dispatch({ type: 'remove-rule', ruleIndex }); }
 
     static removeRelation (environment : EnvironmentHook, relationIndex : number) : void
-        { environment.dispatch({ type: 'removeRelation', relationIndex }); }
+        { environment.dispatch({ type: 'remove-relation', relationIndex }); }
 };
 
 export type {
 
     EnvironmentObject,
+    EnvironmentHook,
 };
 
 export {

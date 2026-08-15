@@ -35,6 +35,7 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
+        "@svgr/webpack": "^8.1.0",
         "@types/react": "^19.2.18",
         "@types/react-dom": "^19.2.4",
         "concurrently": "^10.0.4",
@@ -59,8 +60,5 @@
     "dependencies": {
         "react": "^19.2.8",
         "react-dom": "^19.2.8"
-    },
-    "overrides": {
-        "typescript": "^6.0.0"
     }
 }

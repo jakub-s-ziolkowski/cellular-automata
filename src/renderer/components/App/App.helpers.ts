@@ -2,6 +2,7 @@
 import { EnvironmentObject } from '../../models/environment';
 
 import { Species } from '../../models/species';
+import { Coordinates } from '../../models/coordinates';
 import { Cell } from '../../models/cell';
 import { Condition } from '../../models/condition';
 import { RelationType, Relation } from '../../models/relation';
@@ -37,7 +38,26 @@ const environmentReducer = (state : EnvironmentObject, action : reducerActions) 
 
     switch (action.type) {
 
-        case 'addSpecies':
+        case 'increase-scale':
+
+            state.scale += 1;
+
+            break;
+
+        case 'reset-perspective':
+
+            state.scale = 1;
+            state.coordinates = new Coordinates();
+
+            break;
+
+        case 'decrease-scale':
+
+            state.scale -= 1;
+
+            break;
+
+        case 'add-species':
 
             if (action.speciesName === undefined || action.speciesColor === undefined)
                 throw new Error('Unexpected action');
@@ -46,7 +66,7 @@ const environmentReducer = (state : EnvironmentObject, action : reducerActions) 
 
             break;
 
-        case 'addCell':
+        case 'add-cell':
 
             if (action.speciesIndex === undefined || action.x === undefined || action.y === undefined)
                 throw new Error('Unexpected action');
@@ -55,7 +75,7 @@ const environmentReducer = (state : EnvironmentObject, action : reducerActions) 
 
             break;
 
-        case 'addCondition':
+        case 'add-condition':
 
             if (action.conditionName === undefined || action.speciesIndex === undefined || action.conditionCoefficient === undefined)
                 throw new Error('Unexpected action');
@@ -64,7 +84,7 @@ const environmentReducer = (state : EnvironmentObject, action : reducerActions) 
 
             break;
 
-        case 'addRelation':
+        case 'add-relation':
 
             if (action.leftSpeciesIndex === undefined || action.rightSpeciesIndex === undefined ||
                 action.relationType === undefined || action.relationCoefficient === undefined)
@@ -75,7 +95,7 @@ const environmentReducer = (state : EnvironmentObject, action : reducerActions) 
 
             break;
 
-        case 'removeSpecies':
+        case 'remove-species':
 
             if (action.speciesIndex === undefined)
                 throw new Error('Unexpected action');
@@ -99,7 +119,7 @@ const environmentReducer = (state : EnvironmentObject, action : reducerActions) 
 
             break;
 
-        case 'removeCell':
+        case 'remove-cell':
 
             if (action.x === undefined || action.y === undefined)
                 throw new Error('Unexpected action');
@@ -111,7 +131,7 @@ const environmentReducer = (state : EnvironmentObject, action : reducerActions) 
 
             break;
 
-        case 'removeCondition':
+        case 'remove-condition':
 
             if (action.conditionIndex === undefined)
                 throw new Error('Unexpected action');
@@ -120,7 +140,7 @@ const environmentReducer = (state : EnvironmentObject, action : reducerActions) 
 
             break;
 
-        case 'removeRule':
+        case 'remove-rule':
 
             if (action.ruleIndex === undefined)
                 throw new Error('Unexpected action');
@@ -129,7 +149,7 @@ const environmentReducer = (state : EnvironmentObject, action : reducerActions) 
 
             break;
 
-        case 'removeRelation':
+        case 'remove-relation':
 
             if (action.relationIndex === undefined)
                 throw new Error('Unexpected action');

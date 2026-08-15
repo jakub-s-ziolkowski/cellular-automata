@@ -20,7 +20,7 @@ const App = () : React.JSX.Element => {
         <main className = "main">
             <section className = "display">
                 <nav className = "display__sidePanel">
-                    <ScaleDashboard />
+                    <ScaleDashboard environment = { environment } />
                 </nav>
                 <section className = "display__frame">
                     <section className = "display__canvas"></section>

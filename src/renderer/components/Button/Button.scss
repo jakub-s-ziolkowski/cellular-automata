@@ -1,0 +1,88 @@
+
+@use 'sass:color';
+
+@use '../../styles/abstracts/colors' as *;
+
+.button {
+
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+
+    font-size: xx-large;
+    color: $foreground-color;
+
+    transition-property:
+        transform,
+        box-shadow,
+        background-color,
+        color;
+    transition-duration: .3s;
+
+    svg {
+
+        transition: filter .3s;
+    }
+
+    cursor: pointer;
+}
+
+.button {
+
+    height: 4.5rem;
+    width: 4.5rem;
+
+    background-color: $button-color;
+    border-radius: 1rem;
+
+    svg {
+
+        height: 50%;
+        width: 50%;
+    }
+
+    &:hover {
+
+        transform: translateY(-.2rem);
+        box-shadow: .2rem .2rem .5rem $shadow-color;
+
+        svg {
+
+            filter: drop-shadow(.12rem .12rem .15rem $shadow-color);
+        }
+    }
+
+    &:active {
+
+        transform: translateY(-.1rem) scale(.95);
+    }
+
+    &--inactive {
+
+        background-color: color.mix($button-color, $shadow-color, 50%);
+        color: color.mix($foreground-color, $shadow-color, 85%);
+
+        cursor: not-allowed;
+
+        &:hover {
+
+            transform: initial;
+            box-shadow: initial;
+
+            svg {
+
+                filter: initial;
+            }
+        }
+    }
+
+    &--disabled {
+
+        animation-duration: .3s;
+    }
+
+    &--shakeHorizontally {
+
+        animation-name: shakeHorizontally;
+    }
+}
