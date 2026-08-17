@@ -1,5 +1,5 @@
 
-import { Environment, EnvironmentObject } from '../../models/environment';
+import { Environment, EnvironmentObject, WorkspaceMode } from '../../models/environment';
 
 import { Species } from '../../models/species';
 import { Coordinates } from '../../models/coordinates';
@@ -11,6 +11,8 @@ import { Rule } from '../../models/rule';
 type reducerActions = {
 
     type: string,
+
+    workspaceMode?: WorkspaceMode,
 
     speciesName?: string,
     speciesColor?: string,
@@ -38,6 +40,13 @@ const environmentReducer = (state : EnvironmentObject, action : reducerActions) 
 
     switch (action.type) {
 
+        case 'change-workspace-mode':
+
+            if (action.workspaceMode === undefined)
+                throw new Error('Unexpected action');
+
+            else return { ...state, workspaceMode: action.workspaceMode };
+
         case 'increase-scale':
             return { ...state, scale: state.scale + 1 };
 
@@ -46,6 +55,12 @@ const environmentReducer = (state : EnvironmentObject, action : reducerActions) 
 
         case 'decrease-scale':
             return { ...state, scale: state.scale - 1 };
+
+        case 'decrease-speed':
+            return { ...state, speed: state.speed - .1 };
+
+        case 'increase-speed':
+            return { ...state, speed: state.speed + .1 };
 
         case 'reset-simulation':
             return new Environment();

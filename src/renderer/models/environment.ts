@@ -8,12 +8,21 @@ import { Condition } from './condition';
 import { Rule } from './rule';
 import { RelationType, Relation } from './relation';
 
+enum WorkspaceMode {
+
+    Species = 'Species',
+    Charts = 'Charts',
+    Conditions = 'Conditions',
+    Relations = 'Relations',
+    Rules = 'Rules',
+};
+
 type EnvironmentObject = {
 
     isRunning : boolean;
     isManual : boolean;
     editMode : number;
-    workspaceMode : number;
+    workspaceMode : WorkspaceMode;
     epochs : number,
     speed : number,
     scale : number,
@@ -36,10 +45,10 @@ class Environment {
     public isRunning : boolean = false;
     public isManual : boolean = true;
     public editMode : number = -1;
-    public workspaceMode : number = 9;
+    public workspaceMode : WorkspaceMode = WorkspaceMode.Species;
     
     public epochs : number = 0;
-    public speed : number = 1;
+    public speed : number = 50;
     public scale : number = 1;
     public coordinates : Coordinates = new Coordinates();
 
@@ -49,6 +58,9 @@ class Environment {
     public rules : Rule[] = [];
     public relations : Relation[] = [];
 
+    public static selectWorkspace (environment : EnvironmentHook, workspaceMode : WorkspaceMode) : void
+        { environment.dispatch({ type: 'change-workspace-mode', workspaceMode }) }
+
     public static increaseScale (environment : EnvironmentHook) : void
         { environment.dispatch({ type: 'increase-scale' }) }
 
@@ -57,6 +69,12 @@ class Environment {
 
     public static decreaseScale (environment : EnvironmentHook) : void
         { environment.dispatch({ type: 'decrease-scale' }) }
+
+    public static decreaseSpeed (environment : EnvironmentHook) : void
+        { environment.dispatch({ type: 'decrease-speed' }) }
+
+    public static increaseSpeed (environment : EnvironmentHook) : void
+        { environment.dispatch({ type: 'increase-speed' }) }
 
     public static resetSimulation (environment : EnvironmentHook) : void
         { environment.dispatch({ type: 'reset-simulation' }) }
@@ -105,5 +123,6 @@ export type {
 
 export {
 
+    WorkspaceMode,
     Environment,
 };

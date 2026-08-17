@@ -14,7 +14,6 @@ import { environmentReducer } from './App.helpers';
 const App = () : React.JSX.Element => {
     
     const [ state, dispatch ] = useReducer(environmentReducer, {...new Environment()} as EnvironmentObject);
-    // const environment = useMemo(() => ({ state, dispatch }), [ state ]);
     const environment = { state, dispatch };
 
     return (
@@ -26,17 +25,17 @@ const App = () : React.JSX.Element => {
                 <section className = "display__frame">
                     <section className = "display__canvas"></section>
                     <nav className = "display__bottomPanel">
-                        <SpeedDashboard />
+                        <SpeedDashboard environment = { environment } />
                         <EpochsDashboard environment = { environment } />
                     </nav>
                 </section>
             </section>
             <section className = "workspaceFrame">
-                <span className = "workspaceFrame__title">Title</span>
+                <span className = "workspaceFrame__title">{ environment.state.workspaceMode }</span>
                 <section className = "workspace">
                 </section>
                 <nav className = "workspaceFrame__nav">
-                    <WorkspaceDashboard />
+                    <WorkspaceDashboard environment = { environment } />
                 </nav>
             </section>
         </main>

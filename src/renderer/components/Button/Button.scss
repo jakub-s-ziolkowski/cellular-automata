@@ -3,7 +3,7 @@
 
 @use '../../styles/abstracts/colors' as *;
 
-.button {
+.button, .pin, .tile {
 
     justify-content: center;
     align-items: center;
@@ -25,6 +25,11 @@
     }
 
     cursor: pointer;
+
+    &--shakeHorizontally {
+
+        animation-name: shakeHorizontally;
+    }
 }
 
 .button {
@@ -80,9 +85,26 @@
 
         animation-duration: .3s;
     }
+}
 
-    &--shakeHorizontally {
+.pin {
 
-        animation-name: shakeHorizontally;
+    background-color: transparent;
+
+    filter: drop-shadow(.15rem .15rem .125rem $outline-color);
+
+    &:hover {
+
+        transform: scale(1.075);
     }
+
+    &:active {
+
+        transform: scale(1);
+    }
+}
+
+.tile {
+
+    background-color: transparent;
 }
