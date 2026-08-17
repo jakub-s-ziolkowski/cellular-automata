@@ -1,22 +1,22 @@
 
-import Button from '../Button/Button';
+import { WorkspaceMode, SimulationHook, Simulation } from '@utils/models/simulation';
+
+import Button from '@components/Button/Button';
 
 import './WorkspaceDashboard.scss';
 
-import { WorkspaceMode, Environment, EnvironmentHook } from '../../models/environment';
-
 interface WorkspaceDashboardProps {
 
-    environment : EnvironmentHook,
+    simulation : SimulationHook,
 };
 
-const WorkspaceDashboard = ({ environment } : WorkspaceDashboardProps) : React.JSX.Element => {
+const WorkspaceDashboard = ({ simulation } : WorkspaceDashboardProps) : React.JSX.Element => {
 
     const selectWorkspace = (workspace : WorkspaceMode) : void =>
-        Environment.selectWorkspace(environment, workspace);
+        Simulation.selectWorkspaceMode(simulation, workspace);
 
     const isWorkspaceSelected = (workspace : WorkspaceMode) : boolean =>
-        workspace === environment.state.workspaceMode;
+        workspace === simulation.state.workspaceMode;
 
     return (
         <div className = "workspaceDashboard">

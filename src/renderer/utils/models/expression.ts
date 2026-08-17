@@ -23,8 +23,6 @@ interface Expression {
     isBinary () : boolean;
 
     toString (speciesNames : string[]) : string;
-
-    clone () : Expression;
 };
 
 class UnaryExpression implements Expression {
@@ -96,9 +94,6 @@ class UnaryExpression implements Expression {
                 throw new Error(`Unknown operator: ${this.operator}`);
         }
     }
-
-    clone () : UnaryExpression
-        { return new UnaryExpression(this.expressionSpeciesIndex, this.targetSpeciesIndex, this.neighborCount, this.operator); }
 };
 
 class BinaryExpression implements Expression {
@@ -158,9 +153,6 @@ class BinaryExpression implements Expression {
                 throw new Error(`Unknown operator: ${this.operator}`);
         }
     }
-
-    clone () : BinaryExpression
-        { return new BinaryExpression(this.expressionSpeciesIndex ,this.leftSpeciesIndex, this.rightSpeciesIndex, this.operator); }
 };
 
 export type {

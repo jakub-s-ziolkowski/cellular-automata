@@ -9,7 +9,12 @@
         "skipLibCheck": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "paths": {
+            "@components/*": ["./src/renderer/components/*"],
+            "@utils/*": ["./src/renderer/utils/*"],
+            "@assets/*": ["./src/renderer/assets/*"]
+        }
     },
     "include": ["src/renderer"]
 }

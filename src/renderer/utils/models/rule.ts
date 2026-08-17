@@ -33,11 +33,6 @@ class Rule {
     setType (newType : RuleType) : void { this.type = newType; }
     setExpressions (newExpressions : Expression[]) : void { this.expressions = newExpressions; }
 
-    clone () : Rule {
-
-        return new Rule(this.targetSpeciesIndex, this.title, this.type,
-            this.expressions.map((expression : Expression) => expression.clone())); }
-
     refersTo (speciesIndex : number) : boolean
         { return speciesIndex === this.targetSpeciesIndex; }
 

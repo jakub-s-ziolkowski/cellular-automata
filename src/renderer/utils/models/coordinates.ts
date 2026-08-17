@@ -16,8 +16,6 @@ class Coordinates {
     equals (other : Coordinates) : boolean { return this.x === other.x && this.y === other.y; }
 
     toString () : string { return `(${this.x}, ${this.y})`; }
-
-    clone () : Coordinates { return new Coordinates(this.x, this.y); }
 };
 
 export {

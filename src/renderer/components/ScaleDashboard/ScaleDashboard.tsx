@@ -1,30 +1,30 @@
 
-import Button from '../Button/Button';
+import { MouseEventHandler, MouseEvent } from 'react';
+
+import { SimulationHook, Simulation } from '@utils/models/simulation';
+
+import Button from '@components/Button/Button';
 
 import './ScaleDashboard.scss';
 
-import { MouseEventHandler, MouseEvent } from 'react';
-
-import { Environment, EnvironmentHook } from '../../models/environment';
-
 interface ScaleDashboardProps {
 
-    environment : EnvironmentHook,
+    simulation : SimulationHook,
 };
 
-const ScaleDashboard = ({ environment } : ScaleDashboardProps) : React.JSX.Element => {
+const ScaleDashboard = ({ simulation } : ScaleDashboardProps) : React.JSX.Element => {
 
     const zoomIn : MouseEventHandler
         = (_ : MouseEvent<HTMLButtonElement>) : void =>
-            Environment.increaseScale(environment);
+            Simulation.increaseScale(simulation);
 
     const zoomCenter : MouseEventHandler
         = (_ : MouseEvent<HTMLButtonElement>) : void =>
-            Environment.resetPerspective(environment);
+            Simulation.resetPerspective(simulation);
 
     const zoomOut : MouseEventHandler
         = (_ : MouseEvent<HTMLButtonElement>) : void =>
-            Environment.decreaseScale(environment);
+            Simulation.decreaseScale(simulation);
 
     return (
         <div className = "scaleDashboard">

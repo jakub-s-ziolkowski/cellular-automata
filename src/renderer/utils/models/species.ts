@@ -30,8 +30,6 @@ class Species {
         else
             this.history[this.history.length - 1] = newCount;
     }
-
-    clone () : Species { return new Species(this.name, this.color, [...this.history]); }
 };
 
 export {

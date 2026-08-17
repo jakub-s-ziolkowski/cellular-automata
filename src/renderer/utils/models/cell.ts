@@ -23,8 +23,6 @@ class Cell {
     belongsTo (speciesIndex : number) : boolean { return speciesIndex === this.speciesIndex; }
 
     toString () : string { return this.coordinates.toString(); }
-
-    clone () : Cell { return new Cell(this.speciesIndex, this.getX(), this.getY()); }
 };
 
 export {

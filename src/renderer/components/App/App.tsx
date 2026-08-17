@@ -1,41 +1,42 @@
 
 import { useReducer } from 'react';
 
-import ScaleDashboard from '../ScaleDashboard/ScaleDashboard';
-import SpeedDashboard from '../SpeedDashboard/SpeedDashboard';
-import EpochsDashboard from '../EpochsDashboard/EpochsDashboard';
-import WorkspaceDashboard from '../WorkspaceDashboard/WorkspaceDashboard';
+import { SimulationObject, Simulation } from '@utils/models/simulation';
+import { simulationReducer } from './App.helpers';
+
+import ScaleDashboard from '@components/ScaleDashboard/ScaleDashboard';
+import SpeedDashboard from '@components/SpeedDashboard/SpeedDashboard';
+import EpochsDashboard from '@components/EpochsDashboard/EpochsDashboard';
+import WorkspaceDashboard from '@components/WorkspaceDashboard/WorkspaceDashboard';
 
 import './App.scss';
 
-import { EnvironmentObject, Environment } from '../../models/environment';
-import { environmentReducer } from './App.helpers';
-
 const App = () : React.JSX.Element => {
     
-    const [ state, dispatch ] = useReducer(environmentReducer, {...new Environment()} as EnvironmentObject);
-    const environment = { state, dispatch };
+    const [ state, dispatch ] = useReducer(simulationReducer, {...new Simulation()} as SimulationObject);
+    const simulation = { state, dispatch };
 
     return (
         <main className = "main">
             <section className = "display">
                 <nav className = "display__sidePanel">
-                    <ScaleDashboard environment = { environment } />
+                    <ScaleDashboard simulation = { simulation } />
                 </nav>
                 <section className = "display__frame">
                     <section className = "display__canvas"></section>
                     <nav className = "display__bottomPanel">
-                        <SpeedDashboard environment = { environment } />
-                        <EpochsDashboard environment = { environment } />
+                        <SpeedDashboard simulation = { simulation } />
+                        <EpochsDashboard simulation = { simulation } />
                     </nav>
                 </section>
             </section>
             <section className = "workspaceFrame">
-                <span className = "workspaceFrame__title">{ environment.state.workspaceMode }</span>
+                <span className = "workspaceFrame__title">{ simulation.state.workspaceMode }</span>
                 <section className = "workspace">
+
                 </section>
                 <nav className = "workspaceFrame__nav">
-                    <WorkspaceDashboard environment = { environment } />
+                    <WorkspaceDashboard simulation = { simulation } />
                 </nav>
             </section>
         </main>

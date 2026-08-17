@@ -15,6 +15,11 @@ module.exports = {
         extensionAlias: {
             '.js': ['.ts', '.tsx', '.js'],
         },
+        alias: {
+            '@components': path.resolve(__dirname, 'src/renderer/components'),
+            '@utils': path.resolve(__dirname, 'src/renderer/utils'),
+            '@assets': path.resolve(__dirname, 'src/renderer/assets'),
+        }
     },
     module: {
         rules: [

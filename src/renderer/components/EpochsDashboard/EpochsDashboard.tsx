@@ -1,40 +1,40 @@
 
-import Button from '../Button/Button';
+import { MouseEventHandler, MouseEvent } from 'react';
+
+import { SimulationHook, Simulation } from '@utils/models/simulation';
+
+import Button from '@components/Button/Button';
 
 import './EpochsDashboard.scss';
 
-import { MouseEventHandler, MouseEvent } from 'react';
-
-import { EnvironmentHook, Environment } from '../../models/environment';
-
 interface EpochsDashboardProps {
 
-    environment : EnvironmentHook
+    simulation : SimulationHook
 };
 
-const EpochsDashboard = ({ environment } : EpochsDashboardProps) : React.JSX.Element => {
+const EpochsDashboard = ({ simulation } : EpochsDashboardProps) : React.JSX.Element => {
 
     const checkMode = ( strict : boolean = true ) : boolean =>
-        strict ? (!environment.state.isManual || environment.state.editMode >= 0)
-            : (environment.state.editMode >= 0);
+        strict ? (!simulation.state.isManual || simulation.state.editMode >= 0)
+            : (simulation.state.editMode >= 0);
 
     const resetSimulation : MouseEventHandler
         = (_ : MouseEvent<HTMLButtonElement>) : void =>
-            Environment.resetSimulation(environment);
+            Simulation.resetSimulation(simulation);
 
     const toggleSimulation : MouseEventHandler
         = (_ : MouseEvent<HTMLButtonElement>) : void =>
-            Environment.toggleSimulation(environment);
+            Simulation.toggleSimulation(simulation);
 
     const nextEpoch : MouseEventHandler
         = (_ : MouseEvent<HTMLButtonElement>) : void =>
-            Environment.nextEpoch(environment);
+            Simulation.nextEpoch(simulation);
 
     return (
         <div className = "epochsDashboard">
             <Button title = "Reset" type = "button" functionality = { resetSimulation }
                 isDisabled = { checkMode() } />
-            <Button title = { environment.state.isRunning ? "Start" : "Stop" } type = "button"
+            <Button title = { simulation.state.isRunning ? "Start" : "Stop" } type = "button"
                 functionality = { toggleSimulation } isDisabled = { checkMode(false) } />
             <Button title = "Step" type = "button" functionality = { nextEpoch }
                 isDisabled = { checkMode() } />

@@ -1,26 +1,26 @@
 
-import Button from '../Button/Button';
+import { MouseEventHandler, MouseEvent } from 'react';
+
+import { SimulationHook, Simulation } from '@utils/models/simulation';
+
+import Button from '@components/Button/Button';
 
 import './SpeedDashboard.scss';
 
-import { MouseEventHandler, MouseEvent } from 'react';
-
-import { Environment, EnvironmentHook } from '../../models/environment';
-
 interface SpeedDashboardProps {
 
-    environment : EnvironmentHook,
+    simulation : SimulationHook,
 };
 
-const SpeedDashboard = ({ environment } : SpeedDashboardProps) : React.JSX.Element => {
+const SpeedDashboard = ({ simulation } : SpeedDashboardProps) : React.JSX.Element => {
 
     const slowDown : MouseEventHandler
         = (_ : MouseEvent<HTMLButtonElement>) : void =>
-            Environment.decreaseSpeed(environment);
+            Simulation.decreaseSpeed(simulation);
 
     const speedUp : MouseEventHandler
         = (_ : MouseEvent<HTMLButtonElement>) : void =>
-            Environment.increaseSpeed(environment);
+            Simulation.increaseSpeed(simulation);
 
     return (
         <div className = "speedDashboard">

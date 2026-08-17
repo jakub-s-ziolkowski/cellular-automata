@@ -19,7 +19,7 @@ module.exports = merge(common, {
 
         port: 5173,
         hot: true,
-        open: true,
+        open: false,
         historyApiFallback: true,
     },
 });

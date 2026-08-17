@@ -48,9 +48,6 @@ class Relation {
 
     isRightSide (speciesIndex : number) : boolean
         { return speciesIndex === this.rightSpeciesIndex; }
-
-    clone () : Relation
-        { return new Relation(this.leftSpeciesIndex, this.rightSpeciesIndex, this.type, this.coefficient); }
 }
 
 export type {

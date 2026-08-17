@@ -1,7 +1,8 @@
 
 @use 'sass:color';
 
-@use '../../styles/abstracts/colors' as *;
+@use '@assets/styles/abstracts/colors' as *;
+@use '@assets/styles/abstracts/keyframes' as *;
 
 .button, .pin, .tile {
 
@@ -29,6 +30,11 @@
     &--shakeHorizontally {
 
         animation-name: shakeHorizontally;
+    }
+    
+    &--disabled {
+
+        animation-duration: .3s;
     }
 }
 
@@ -79,11 +85,6 @@
                 filter: initial;
             }
         }
-    }
-
-    &--disabled {
-
-        animation-duration: .3s;
     }
 }
 

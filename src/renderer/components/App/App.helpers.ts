@@ -1,17 +1,17 @@
 
-import { Environment, EnvironmentObject, WorkspaceMode } from '../../models/environment';
-
-import { Species } from '../../models/species';
-import { Coordinates } from '../../models/coordinates';
-import { Cell } from '../../models/cell';
-import { Condition } from '../../models/condition';
-import { RelationType, Relation } from '../../models/relation';
-import { Rule } from '../../models/rule';
+import { WorkspaceMode, SimulationObject, Simulation } from '@utils/models/simulation';
+import { Species } from '@utils/models/species';
+import { Coordinates } from '@utils/models/coordinates';
+import { Cell } from '@utils/models/cell';
+import { Condition } from '@utils/models/condition';
+import { RelationType, Relation } from '@utils/models/relation';
+import { Rule } from '@utils/models/rule';
 
 type reducerActions = {
 
     type: string,
 
+    editMode?: number,
     workspaceMode?: WorkspaceMode,
 
     speciesName?: string,
@@ -36,9 +36,22 @@ type reducerActions = {
     relationIndex?: number,
 };
 
-const environmentReducer = (state : EnvironmentObject, action : reducerActions) : EnvironmentObject => {
+const simulationReducer = (state : SimulationObject, action : reducerActions) : SimulationObject => {
 
     switch (action.type) {
+
+        case 'toggle-simulation':
+            return { ...state, isRunning: !state.isRunning }
+
+        case 'toggle-manual':
+            return { ...state, isManual: !state.isManual }
+
+        case 'change-edit-mode':
+
+            if (action.editMode === undefined)
+                throw new Error('Unexpected action');
+
+            else return { ...state, editMode: action.editMode };
 
         case 'change-workspace-mode':
 
@@ -47,30 +60,30 @@ const environmentReducer = (state : EnvironmentObject, action : reducerActions) 
 
             else return { ...state, workspaceMode: action.workspaceMode };
 
-        case 'increase-scale':
-            return { ...state, scale: state.scale + 1 };
+        // ---
 
-        case 'reset-perspective':
-            return { ...state, scale: 1, coordinates: new Coordinates()};
+        case 'reset-simulation':
+            return new Simulation();
 
-        case 'decrease-scale':
-            return { ...state, scale: state.scale - 1 };
-
-        case 'decrease-speed':
-            return { ...state, speed: state.speed - .1 };
+        case 'next-epoch':
+            return { ...state, epochs: state.epochs + 1};
 
         case 'increase-speed':
             return { ...state, speed: state.speed + .1 };
 
-        case 'reset-simulation':
-            return new Environment();
+        case 'decrease-speed':
+            return { ...state, speed: state.speed - .1 };
 
-        case 'toggle-simulation':
-            return { ...state, isRunning: !state.isRunning }
+        case 'increase-scale':
+            return { ...state, scale: state.scale + 1 };
 
-        case 'next-epoch':
+        case 'decrease-scale':
+            return { ...state, scale: state.scale - 1 };
 
-            return { ...state, epochs: state.epochs + 1};
+        case 'reset-perspective':
+            return { ...state, scale: 1, coordinates: new Coordinates()};
+
+        // ---
 
         case 'add-species':
 
@@ -81,6 +94,20 @@ const environmentReducer = (state : EnvironmentObject, action : reducerActions) 
                 species: [ ...state.species,
                     new Species (action.speciesName, action.speciesColor) ]};
 
+        case 'remove-species':
+
+            if (action.speciesIndex === undefined)
+                throw new Error('Unexpected action');
+
+            else return { ...state,
+                species: state.species.filter((_ : Species, index : number) => index !== action.speciesIndex),
+                cells: state.cells.filter((cell : Cell) => !cell.belongsTo(action.speciesIndex!)),
+                rules: state.rules
+                    .filter((rule : Rule) => !rule.refersTo(action.speciesIndex!))
+                        .map((rule : Rule) => rule.filterExpressions(action.speciesIndex!)),
+                relations: state.relations
+                    .filter((relation : Relation) => !relation.isParticipatingSpecies(action.speciesIndex!))};
+
         case 'add-cell':
 
             if (action.speciesIndex === undefined || action.x === undefined || action.y === undefined)
@@ -90,6 +117,14 @@ const environmentReducer = (state : EnvironmentObject, action : reducerActions) 
                 cells: [ ...state.cells,
                     new Cell(action.speciesIndex, action.x, action.y) ]};
 
+        case 'remove-cell':
+
+            if (action.x === undefined || action.y === undefined)
+                throw new Error('Unexpected action');
+
+            else return { ...state,
+                cells: state.cells.filter((cell : Cell) => cell.getX() === action.x && cell.getY() === action.y)};
+
         case 'add-condition':
 
             if (action.conditionName === undefined || action.speciesIndex === undefined || action.conditionCoefficient === undefined)
@@ -98,6 +133,29 @@ const environmentReducer = (state : EnvironmentObject, action : reducerActions) 
             else return { ...state,
                 conditions: [ ...state.conditions,
                     new Condition(action.conditionName, action.speciesIndex, action.conditionCoefficient) ]};
+
+        case 'remove-condition':
+
+            if (action.conditionIndex === undefined)
+                throw new Error('Unexpected action');
+
+            else return { ...state,
+                conditions: state.conditions.filter((_ : Condition, index : Number) => index !== action.conditionIndex)};
+
+        // case 'add-rule':
+
+        //     if (action === undefined)
+        //         throw new Error('Unexpected action');
+
+        //     else return { ...state, };
+
+        case 'remove-rule':
+
+            if (action.ruleIndex === undefined)
+                throw new Error('Unexpected action');
+
+            else return { ...state,
+                rules: state.rules.filter((_ : Rule, index : number) => index !== action.ruleIndex)};
 
         case 'add-relation':
 
@@ -109,51 +167,13 @@ const environmentReducer = (state : EnvironmentObject, action : reducerActions) 
                 relations: [ ...state.relations,
                     new Relation(action.leftSpeciesIndex, action.rightSpeciesIndex, action.relationType, action.relationCoefficient) ]};
 
-        case 'remove-species':
-
-            if (action.speciesIndex === undefined)
-                throw new Error('Unexpected action');
-
-            else return { ...state,
-                species: state.species.filter((_, index : number) => index !== action.speciesIndex),
-                cells: state.cells.filter((cell : Cell) => !cell.belongsTo(action.speciesIndex!)),
-                rules: state.rules
-                    .filter((rule : Rule) => !rule.refersTo(action.speciesIndex!))
-                        .map((rule : Rule) => rule.filterExpressions(action.speciesIndex!)),
-                relations: state.relations
-                    .filter((relation : Relation) => !relation.isParticipatingSpecies(action.speciesIndex!))};
-
-        case 'remove-cell':
-
-            if (action.x === undefined || action.y === undefined)
-                throw new Error('Unexpected action');
-
-            else return { ...state,
-                cells: state.cells.filter((cell : Cell) => cell.getX() === action.x && cell.getY() === action.y)};
-
-        case 'remove-condition':
-
-            if (action.conditionIndex === undefined)
-                throw new Error('Unexpected action');
-
-            else return { ...state,
-                conditions: state.conditions.filter((_, index : Number) => index !== action.conditionIndex)};
-
-        case 'remove-rule':
-
-            if (action.ruleIndex === undefined)
-                throw new Error('Unexpected action');
-
-            else return { ...state,
-                rules: state.rules.filter((_, index : number) => index !== action.ruleIndex)};
-
         case 'remove-relation':
 
             if (action.relationIndex === undefined)
                 throw new Error('Unexpected action');
 
             else return { ...state,
-                relations: state.relations.filter((_, index : number) => index !== action.relationIndex)};
+                relations: state.relations.filter((_ : Relation, index : number) => index !== action.relationIndex)};
     }
 
     return { ...state };
@@ -161,5 +181,5 @@ const environmentReducer = (state : EnvironmentObject, action : reducerActions) 
 
 export {
 
-    environmentReducer,
+    simulationReducer,
 };

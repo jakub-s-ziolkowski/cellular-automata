@@ -1,0 +1,18 @@
+
+@keyframes shakeHorizontally {
+
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-.25rem); }
+    50% { transform: translateX(0); }
+    75% { transform: translateX(.25rem); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes shakeVertically {
+
+    0% { transform: translateY(0); }
+    25% { transform: translateY(-.5rem); }
+    50% { transform: translateY(0); }
+    75% { transform: translateY(.5rem); }
+    100% { transform: translateY(0); }
+}

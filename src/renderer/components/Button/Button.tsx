@@ -1,26 +1,28 @@
 
-import { MouseEventHandler, useState, MouseEvent } from 'react';
+import { MouseEventHandler, MouseEvent, useState } from 'react';
+
+import { buttonShakeAnimation } from '@utils/helpers/animation';
 
 import './Button.scss';
 
-import ZoomInIcon from '../../assets/icons/zoom-in.svg';
-import ZoomCenterIcon from '../../assets/icons/center.svg';
-import ZoomOutIcon from '../../assets/icons/zoom-out.svg';
+import ZoomInIcon from '@assets/icons/zoom-in.svg';
+import ZoomCenterIcon from '@assets/icons/center.svg';
+import ZoomOutIcon from '@assets/icons/zoom-out.svg';
 
-import SnailIcon from '../../assets/icons/snail.svg';
-import HareIcon from '../../assets/icons/hare.svg';
+import SnailIcon from '@assets/icons/snail.svg';
+import HareIcon from '@assets/icons/hare.svg';
 
-import ResetIcon from '../../assets/icons/square.svg';
-import StartIcon from '../../assets/icons/start.svg';
-import PauseIcon from '../../assets/icons/pause.svg';
-import ArrowIcon from '../../assets/icons/arrow.svg';
+import ResetIcon from '@assets/icons/square.svg';
+import StartIcon from '@assets/icons/start.svg';
+import PauseIcon from '@assets/icons/pause.svg';
+import ArrowIcon from '@assets/icons/arrow.svg';
 
-import File from '../../assets/icons/file.svg';
-import EditIcon from '../../assets/icons/edit.svg';
-import Chart from '../../assets/icons/chart.svg';
-import LeafIcon from '../../assets/icons/leaf.svg';
-import RelationsIcon from '../../assets/icons/relations.svg';
-import ClipboardEditIcon from '../../assets/icons/clipboard-edit.svg';
+import File from '@assets/icons/file.svg';
+import EditIcon from '@assets/icons/edit.svg';
+import Chart from '@assets/icons/chart.svg';
+import LeafIcon from '@assets/icons/leaf.svg';
+import RelationsIcon from '@assets/icons/relations.svg';
+import ClipboardEditIcon from '@assets/icons/clipboard-edit.svg';
 
 interface ButtonProps {
 
@@ -40,8 +42,8 @@ const Button = ({ title, type, functionality = () => {}, isDisabled = false } : 
 
         setAnimation(true);
 
-        // buttonShakeAnimation(event.currentTarget)
-        //     .then(() => setAnimation(false));
+        buttonShakeAnimation(event.currentTarget, type)
+            .then(() => setAnimation(false));
     };
 
     return <button className = { type + (isDisabled ? ` ${type}--inactive` : '') }
