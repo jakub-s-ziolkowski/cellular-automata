@@ -51,7 +51,7 @@ const simulationReducer = (state : SimulationObject, action : reducerActions) : 
             if (action.editMode === undefined)
                 throw new Error('Unexpected action');
 
-            else return { ...state, editMode: action.editMode };
+            else return { ...state, editMode: (state.editMode === action.editMode ? -1 : action.editMode) };
 
         case 'change-workspace-mode':
 

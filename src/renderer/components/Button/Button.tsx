@@ -17,12 +17,16 @@ import StartIcon from '@assets/icons/start.svg';
 import PauseIcon from '@assets/icons/pause.svg';
 import ArrowIcon from '@assets/icons/arrow.svg';
 
-import File from '@assets/icons/file.svg';
+import FileIcon from '@assets/icons/file.svg';
 import EditIcon from '@assets/icons/edit.svg';
-import Chart from '@assets/icons/chart.svg';
+import ChartIcon from '@assets/icons/chart.svg';
 import LeafIcon from '@assets/icons/leaf.svg';
 import RelationsIcon from '@assets/icons/relations.svg';
 import ClipboardEditIcon from '@assets/icons/clipboard-edit.svg';
+
+import CirclePlusIcon from '@assets/icons/circle-plus.svg'
+import CircleMinusIcon from '@assets/icons/circle-minus.svg'
+import HandClickIcon from '@assets/icons/hand-click.svg'
 
 interface ButtonProps {
 
@@ -30,9 +34,10 @@ interface ButtonProps {
     type: string,
     functionality? : MouseEventHandler<HTMLButtonElement>,
     isDisabled? : boolean,
+    isSubmit? : boolean,
 };
 
-const Button = ({ title, type, functionality = () => {}, isDisabled = false } : ButtonProps) : React.JSX.Element => {
+const Button = ({ title, type, functionality = () => {}, isDisabled = false, isSubmit = false } : ButtonProps) : React.JSX.Element => {
 
     const [ isDuringAnimation, setAnimation ] = useState<boolean>(false);
 
@@ -47,7 +52,7 @@ const Button = ({ title, type, functionality = () => {}, isDisabled = false } : 
     };
 
     return <button className = { type + (isDisabled ? ` ${type}--inactive` : '') }
-            type = "button" title = { title } onClick = { isDisabled ? animationOnClick : functionality }>
+            type = { isSubmit ? 'submit' : 'button' } title = { title } onClick = { isDisabled ? animationOnClick : functionality }>
                 {(() => {
                     switch (title) {
 
@@ -62,17 +67,17 @@ const Button = ({ title, type, functionality = () => {}, isDisabled = false } : 
                         case 'Start': return <StartIcon />;
                         case 'Stop': return <PauseIcon />;
                         case 'Step': return <ArrowIcon />;
-
-                        // case 'Cells': return <ClickIcon />;
-                        // case 'Add': return <CirclePlus />;
-                        // case 'Remove': return <CircleMinus />;
-
-                        case 'Files': return <File />;
+                        
+                        case 'Files': return <FileIcon />;
                         case 'Species': return <EditIcon />;
-                        case 'Charts': return <Chart />;
+                        case 'Charts': return <ChartIcon />;
                         case 'Conditions': return <LeafIcon />;
                         case 'Relations': return <RelationsIcon />;
                         case 'Rules': return <ClipboardEditIcon />;
+
+                        case 'Cells': return <HandClickIcon />;
+                        case 'Add': return <CirclePlusIcon />;
+                        case 'Remove': return <CircleMinusIcon />;
 
                         default: return '';
                     }

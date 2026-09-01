@@ -7,9 +7,11 @@ import { simulationReducer } from './App.helpers';
 import ScaleDashboard from '@components/ScaleDashboard/ScaleDashboard';
 import SpeedDashboard from '@components/SpeedDashboard/SpeedDashboard';
 import EpochsDashboard from '@components/EpochsDashboard/EpochsDashboard';
-import WorkspaceDashboard from '@components/WorkspaceDashboard/WorkspaceDashboard';
+import WorkspaceFrame from '@components/WorkspaceFrame/WorkspaceFrame';
 
 import './App.scss';
+import { Species } from '@utils/models/species';
+import { Cell } from '@utils/models/cell';
 
 const App = () : React.JSX.Element => {
     
@@ -30,15 +32,7 @@ const App = () : React.JSX.Element => {
                     </nav>
                 </section>
             </section>
-            <section className = "workspaceFrame">
-                <span className = "workspaceFrame__title">{ simulation.state.workspaceMode }</span>
-                <section className = "workspace">
-
-                </section>
-                <nav className = "workspaceFrame__nav">
-                    <WorkspaceDashboard simulation = { simulation } />
-                </nav>
-            </section>
+            <WorkspaceFrame simulation = { simulation } />
         </main>
     );
 };

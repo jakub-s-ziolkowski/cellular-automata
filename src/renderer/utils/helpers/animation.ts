@@ -52,7 +52,10 @@ const shakeAnimation = (
             }
         });
 
+const fieldShakeAnimation = (element : HTMLElement, baseClassName : string) : Promise<void> =>
+    shakeAnimation(element, baseClassName, 'incorrect', 'shakeHorizontally');
+
 const buttonShakeAnimation = (element : HTMLElement, type : string) : Promise<void> =>
     shakeAnimation(element, type, 'disabled', 'shakeHorizontally');
 
-export { buttonShakeAnimation };
+export { fieldShakeAnimation, buttonShakeAnimation };

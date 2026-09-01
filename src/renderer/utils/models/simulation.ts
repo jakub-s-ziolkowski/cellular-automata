@@ -60,6 +60,26 @@ class Simulation {
     public rules : Rule[] = [];
     public relations : Relation[] = [];
 
+    public static getSpeciesName (simulation : SimulationHook, speciesIndex : number) : string
+        { return simulation.state.species[speciesIndex].getName(); }
+
+    public static getSpeciesNames (simulation : SimulationHook) : string[]
+        { return simulation.state.species.map((species : Species) => species.getName()); }
+
+    public static getSpeciesCells (simulation : SimulationHook, speciesIndex : number) : Cell[]
+        { return simulation.state.cells.filter((cell : Cell) => cell.belongsTo(speciesIndex)); }
+
+    public static replaceSpeciesCells (simulation : SimulationHook, speciesIndex : number, newCells : Cell[]) : void
+        { simulation.state.cells = simulation.state.cells.filter((cell : Cell) => !cell.belongsTo(speciesIndex)).concat(newCells); }
+
+    public static setSpeciesColor (simulation : SimulationHook, speciesIndex : number, newColor : string) : void
+        { simulation.state.species[speciesIndex].setColor(newColor); }
+
+    public static setSpeciesName (simulation : SimulationHook, speciesIndex : number, newName : string) : void
+        { simulation.state.species[speciesIndex].setName(newName); }
+
+    public static isNameTaken (simulation : SimulationHook, speciesIndex : number, name : string) : boolean
+        { return simulation.state.species.map((species : Species) => species.getName()).includes(name); }
     // ---
 
     public static toggleSimulation (simulation : SimulationHook) : void
