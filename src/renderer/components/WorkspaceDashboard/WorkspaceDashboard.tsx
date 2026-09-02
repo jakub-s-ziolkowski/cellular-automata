@@ -20,8 +20,8 @@ const WorkspaceDashboard = ({ simulation } : WorkspaceDashboardProps) : React.JS
 
     return (
         <div className = "workspaceDashboard">
-            <Button title = "Files" type = "tile" />
-            <hr className = "workspaceDashboard__line" />
+            {/* <Button title = "Files" type = "tile" />
+            <hr className = "workspaceDashboard__line" /> */}
             <Button title = "Species" type = "tile"
                 functionality = { () => selectWorkspace(WorkspaceMode.Species) }
                 isDisabled = { isWorkspaceSelected(WorkspaceMode.Species) } />

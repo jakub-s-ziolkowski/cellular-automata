@@ -69,53 +69,53 @@ class Simulation {
     public static getSpeciesCells (simulation : SimulationHook, speciesIndex : number) : Cell[]
         { return simulation.state.cells.filter((cell : Cell) => cell.belongsTo(speciesIndex)); }
 
-    public static replaceSpeciesCells (simulation : SimulationHook, speciesIndex : number, newCells : Cell[]) : void
-        { simulation.state.cells = simulation.state.cells.filter((cell : Cell) => !cell.belongsTo(speciesIndex)).concat(newCells); }
+    public static replaceSpeciesCells (simulation : SimulationHook, speciesIndex : number, cells : Cell[]) : void
+        { simulation.dispatch({ type: 'replace-species-cells', speciesIndex, cells }); }
 
-    public static setSpeciesColor (simulation : SimulationHook, speciesIndex : number, newColor : string) : void
-        { simulation.state.species[speciesIndex].setColor(newColor); }
+    public static setSpeciesColor (simulation : SimulationHook, speciesIndex : number, color : string) : void
+        { simulation.dispatch({ type: 'set-species-color', speciesIndex, color }); }
 
-    public static setSpeciesName (simulation : SimulationHook, speciesIndex : number, newName : string) : void
-        { simulation.state.species[speciesIndex].setName(newName); }
+    public static setSpeciesName (simulation : SimulationHook, speciesIndex : number, name : string) : void
+        { simulation.dispatch({ type: 'set-species-name', speciesIndex, name }); }
 
     public static isNameTaken (simulation : SimulationHook, speciesIndex : number, name : string) : boolean
         { return simulation.state.species.map((species : Species) => species.getName()).includes(name); }
     // ---
 
     public static toggleSimulation (simulation : SimulationHook) : void
-        { simulation.dispatch({ type: 'toggle-simulation' }) }
+        { simulation.dispatch({ type: 'toggle-simulation' }); }
 
     public static toggleManual (simulation : SimulationHook) : void
-        { simulation.dispatch({ type: 'toggle-manual' }) }
+        { simulation.dispatch({ type: 'toggle-manual' }); }
 
     public static selectEditMode (simulation : SimulationHook, editMode : number = -1) : void
-        { simulation.dispatch({ type: 'change-edit-mode', editMode }) }
+        { simulation.dispatch({ type: 'change-edit-mode', editMode }); }
 
     public static selectWorkspaceMode (simulation : SimulationHook, workspaceMode : WorkspaceMode) : void
-        { simulation.dispatch({ type: 'change-workspace-mode', workspaceMode }) }
+        { simulation.dispatch({ type: 'change-workspace-mode', workspaceMode }); }
 
     // ---
 
     public static resetSimulation (simulation : SimulationHook) : void
-        { simulation.dispatch({ type: 'reset-simulation' }) }
+        { simulation.dispatch({ type: 'reset-simulation' }); }
 
     public static nextEpoch (simulation : SimulationHook) : void
-        { simulation.dispatch({ type: 'next-epoch' }) }
+        { simulation.dispatch({ type: 'next-epoch' }); }
 
     public static increaseSpeed (simulation : SimulationHook) : void
-        { simulation.dispatch({ type: 'increase-speed' }) }
+        { simulation.dispatch({ type: 'increase-speed' }); }
 
     public static decreaseSpeed (simulation : SimulationHook) : void
-        { simulation.dispatch({ type: 'decrease-speed' }) }
+        { simulation.dispatch({ type: 'decrease-speed' }); }
 
     public static increaseScale (simulation : SimulationHook) : void
-        { simulation.dispatch({ type: 'increase-scale' }) }
+        { simulation.dispatch({ type: 'increase-scale' }); }
 
     public static decreaseScale (simulation : SimulationHook) : void
-        { simulation.dispatch({ type: 'decrease-scale' }) }
+        { simulation.dispatch({ type: 'decrease-scale' }); }
 
     public static resetPerspective (simulation : SimulationHook) : void
-        { simulation.dispatch({ type: 'reset-perspective' }) }
+        { simulation.dispatch({ type: 'reset-perspective' }); }
 
     // ---
 

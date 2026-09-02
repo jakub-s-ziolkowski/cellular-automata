@@ -16,6 +16,7 @@ type reducerActions = {
 
     speciesName?: string,
     speciesColor?: string,
+    cells? : Cell[],
 
     cellSpeciesIndex?: number,
     x?: number,
@@ -39,6 +40,42 @@ type reducerActions = {
 const simulationReducer = (state : SimulationObject, action : reducerActions) : SimulationObject => {
 
     switch (action.type) {
+
+        case 'replace-species-cells':
+
+            if (action.speciesIndex === undefined || action.cells === undefined)
+                throw new Error('Unexpected action');
+
+            else return { ...state,
+                cells: state.cells
+                    .filter((cell : Cell) => !cell.belongsTo(action.speciesIndex!))
+                        .concat(action.cells) }
+    
+        case 'set-species-color':
+
+            if (action.speciesIndex === undefined || action.speciesColor === undefined)
+                throw new Error('Unexpected action');
+
+            else return { ...state, species: state.species.map((species : Species, index : number) => {
+
+                if (index === action.speciesIndex!)
+                    species.setColor(action.speciesColor!);
+
+                return species;
+            }) };
+
+        case 'set-species-name':
+
+            if (action.speciesIndex === undefined || action.speciesName === undefined)
+                throw new Error('Unexpected action');
+
+            else return { ...state, species: state.species.map((species : Species, index : number) => {
+
+                if (index === action.speciesIndex!)
+                    species.setName(action.speciesName!);
+
+                return species;
+            }) };
 
         case 'toggle-simulation':
             return { ...state, isRunning: !state.isRunning }
