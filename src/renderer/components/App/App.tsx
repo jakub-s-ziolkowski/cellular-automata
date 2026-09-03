@@ -12,10 +12,16 @@ import WorkspaceFrame from '@components/WorkspaceFrame/WorkspaceFrame';
 import './App.scss';
 import { Species } from '@utils/models/species';
 import { Cell } from '@utils/models/cell';
+import { Condition } from '@utils/models/condition';
 
 const App = () : React.JSX.Element => {
+
+    const SIMULATION = new Simulation()
+    SIMULATION.species = [new Species('xd', 'red')]
+    SIMULATION.cells = [new Cell(0, 1, 1), new Cell(0, 2, -1)]
+    SIMULATION.conditions = [new Condition('cd', 0, 5)];
     
-    const [ state, dispatch ] = useReducer(simulationReducer, {...new Simulation()} as SimulationObject);
+    const [ state, dispatch ] = useReducer(simulationReducer, {...SIMULATION} as SimulationObject);
     const simulation = { state, dispatch };
 
     return (

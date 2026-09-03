@@ -1,9 +1,10 @@
 
 import { useRef, useState, FocusEventHandler, FocusEvent, Fragment, SubmitEventHandler } from 'react';
 
-import { Cell } from '@utils/models/cell';
 import { Simulation, SimulationHook } from '@utils/models/simulation';
 import { Species } from '@utils/models/species';
+import { Cell } from '@utils/models/cell';
+
 import { fieldShakeAnimation } from '@utils/helpers/animation';
 
 import Button from '@components/Button/Button';
@@ -67,7 +68,7 @@ const SpeciesWorkspace = ({ simulation } : SpeciesWorkspaceProps) : React.JSX.El
 
                 const newName : string = target.value.trim();
 
-                if (!newName || Simulation.isNameTaken(simulation, speciesIndex, newName))
+                if (!newName || Simulation.isSpeciesNameTaken(simulation, newName))
                     fieldShakeAnimation(target, 'speciesWorkspace')
                         .then(() => target.value = Simulation.getSpeciesName(simulation, speciesIndex));
 
@@ -191,10 +192,10 @@ const SpeciesWorkspace = ({ simulation } : SpeciesWorkspaceProps) : React.JSX.El
         <form className = "speciesWorkspace" onSubmit = { addSpecies }>
             <table className = "speciesWorkspace__table">
                 <tbody className = "speciesWorkspace__body">
-                    { simulation.state.species.map((species : Species, index : number) =>
+                    { Simulation.getSpecies(simulation).map((species : Species, index : number) =>
                         <Fragment key = { index }>
                             <tr className = "speciesWorkspace__row">
-                                <td className = "speciesWorkspace__smallInput">
+                                <td className = "speciesWorkspace__data">
                                     <input className = "speciesWorkspace__color" title = "Color" type = "color"
                                         data-species-id = { index } name = { `species-color-${index}` }
                                             onBlur = { modifyColor } defaultValue = { species.getColor() } />
@@ -204,17 +205,17 @@ const SpeciesWorkspace = ({ simulation } : SpeciesWorkspaceProps) : React.JSX.El
                                         data-species-id = { index } name = { `species-name-${index}` }
                                             onBlur = { modifyName } defaultValue = { species.getName() } />
                                 </td>
-                                <td className = "speciesWorkspace__smallInput">
+                                <td className = "speciesWorkspace__data speciesWorkspace__data--wider">
                                     <Button title = "Cells" type = "tile"
                                         functionality = { () => toggleEditMode(index) } />
                                 </td>
-                                <td className = "speciesWorkspace__smallInput">
+                                <td className = "speciesWorkspace__data">
                                     <Button title = "Remove" type = "tile"
                                         functionality = { () => removeSpecies(index) } />
                                 </td>
                             </tr>
                             <tr className = "speciesWorkspace__row">
-                                <td className = "speciesWorkspace__content">
+                                <td className = "speciesWorkspace__data speciesWorkspace__data--wider">
                                     <textarea className = "speciesWorkspace__textarea" title = "Coordinates"
                                         data-species-id = { index } name = { `species-cells-${index}` }
                                             onBlur = { modifyCells } defaultValue = { content[index] } >

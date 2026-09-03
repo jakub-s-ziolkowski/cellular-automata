@@ -47,7 +47,7 @@ class Simulation {
     public isRunning : boolean = false;
     public isManual : boolean = true;
     public editMode : number = -1;
-    public workspaceMode : WorkspaceMode = WorkspaceMode.Species;
+    public workspaceMode : WorkspaceMode = WorkspaceMode.Conditions;
     
     public epochs : number = 0;
     public speed : number = 50;
@@ -59,6 +59,9 @@ class Simulation {
     public conditions : Condition[] = [];
     public rules : Rule[] = [];
     public relations : Relation[] = [];
+
+    public static getSpecies (simulation : SimulationHook) : Species[]
+        { return simulation.state.species; }
 
     public static getSpeciesName (simulation : SimulationHook, speciesIndex : number) : string
         { return simulation.state.species[speciesIndex].getName(); }
@@ -78,8 +81,24 @@ class Simulation {
     public static setSpeciesName (simulation : SimulationHook, speciesIndex : number, name : string) : void
         { simulation.dispatch({ type: 'set-species-name', speciesIndex, name }); }
 
-    public static isNameTaken (simulation : SimulationHook, speciesIndex : number, name : string) : boolean
-        { return simulation.state.species.map((species : Species) => species.getName()).includes(name); }
+    public static isSpeciesNameTaken (simulation : SimulationHook, speciesName : string) : boolean
+        { return simulation.state.species.map((species : Species) => species.getName()).includes(speciesName); }
+
+    public static getConditionsCoefficient (simulation : SimulationHook, conditionsIndex : number) : number
+        { return simulation.state.conditions[conditionsIndex].getCoefficient(); }
+
+    public static setConditionsCoefficient (simulation : SimulationHook, conditionsIndex : number, conditionsCoefficient : number) : void
+        { simulation.dispatch({ type: 'set-conditions-coefficient', conditionsIndex, conditionsCoefficient }); }
+
+    public static getConditionsName (simulation : SimulationHook, conditionsIndex : number) : string
+        { return simulation.state.conditions[conditionsIndex].getName(); }
+
+    public static setConditionsName (simulation : SimulationHook, conditionsIndex : number, conditionsName : string) : void
+        { simulation.dispatch({ type: 'set-conditions-name', conditionsIndex, conditionsName }); }
+
+    public static isConditionsNameTaken (simulation : SimulationHook, conditionsName : string) : boolean
+        { return simulation.state.conditions.map((conditions : Condition) => conditions.getName()).includes(conditionsName); }
+
     // ---
 
     public static toggleSimulation (simulation : SimulationHook) : void

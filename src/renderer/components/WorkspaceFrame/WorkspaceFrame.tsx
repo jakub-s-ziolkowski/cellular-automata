@@ -2,6 +2,7 @@
 import { WorkspaceMode, SimulationHook } from '@utils/models/simulation';
 
 import SpeciesWorkspace from '@components/SpeciesWorkspace/SpeciesWorkspace';
+import ConditionsDashboard from '@components/ConditionsDashboard/ConditionsDashboard';
 import WorkspaceDashboard from '@components/WorkspaceDashboard/WorkspaceDashboard';
 
 import './WorkspaceFrame.scss';
@@ -21,7 +22,7 @@ const WorkspaceFrame = ({ simulation } : WorkspaceFrameProps) : React.JSX.Elemen
 
                     case WorkspaceMode.Species:
 
-                        return <SpeciesWorkspace simulation = { simulation }/>
+                        return <SpeciesWorkspace simulation = { simulation } />
 
                     case WorkspaceMode.Charts:
 
@@ -29,7 +30,7 @@ const WorkspaceFrame = ({ simulation } : WorkspaceFrameProps) : React.JSX.Elemen
 
                     case WorkspaceMode.Conditions:
 
-                        return 'ConditionsWorkspace'
+                        return <ConditionsDashboard simulation = { simulation } />
 
                     case WorkspaceMode.Relations:
 

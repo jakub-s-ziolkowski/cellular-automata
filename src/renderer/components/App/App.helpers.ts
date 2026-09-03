@@ -22,9 +22,9 @@ type reducerActions = {
     x?: number,
     y?: number,
 
-    conditionName? : string,
-    conditionSpeciesIndex? : number,
-    conditionCoefficient? : number,
+    conditionsName? : string,
+    conditionsIndex? : number,
+    conditionsCoefficient? : number,
 
     leftSpeciesIndex?: number,
     rightSpeciesIndex?: number,
@@ -75,6 +75,32 @@ const simulationReducer = (state : SimulationObject, action : reducerActions) : 
                     species.setName(action.speciesName!);
 
                 return species;
+            }) };
+
+        case 'set-conditions-coefficient':
+
+            if (action.conditionsIndex === undefined || action.conditionsCoefficient === undefined)
+                throw new Error('Unexpected action');
+
+            else return { ...state, conditions: state.conditions.map((conditions : Condition, index : number) => {
+
+                if (index === action.conditionsIndex!)
+                    conditions.setCoefficient(action.conditionsCoefficient!);
+
+                return conditions;
+            }) };
+
+        case 'set-conditions-name':
+
+            if (action.conditionsIndex === undefined || action.conditionsName === undefined)
+                throw new Error('Unexpected action');
+
+            else return { ...state, conditions: state.conditions.map((conditions : Condition, index : number) => {
+
+                if (index === action.conditionsIndex!)
+                    conditions.setName(action.conditionsName!);
+
+                return conditions;
             }) };
 
         case 'toggle-simulation':
@@ -164,12 +190,12 @@ const simulationReducer = (state : SimulationObject, action : reducerActions) : 
 
         case 'add-condition':
 
-            if (action.conditionName === undefined || action.speciesIndex === undefined || action.conditionCoefficient === undefined)
+            if (action.conditionsName === undefined || action.speciesIndex === undefined || action.conditionsCoefficient === undefined)
                 throw new Error('Unexpected action');
 
             else return { ...state,
                 conditions: [ ...state.conditions,
-                    new Condition(action.conditionName, action.speciesIndex, action.conditionCoefficient) ]};
+                    new Condition(action.conditionsName, action.speciesIndex, action.conditionsCoefficient) ]};
 
         case 'remove-condition':
 

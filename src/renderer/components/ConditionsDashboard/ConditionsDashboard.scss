@@ -1,12 +1,12 @@
 
 @use '@assets/styles/abstracts/form' as *;
 
-.speciesWorkspace {
+.conditionsWorkspace {
 
     @include workspaceForm;
 
-    &__body {
+    &__header {
 
-        padding-top: 3rem;
+        padding-left: 6rem;
     }
 }
